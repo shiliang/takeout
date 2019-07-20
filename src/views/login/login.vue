@@ -31,7 +31,9 @@
 
 <script>
 import { setCookie,getCookie } from '../../assets/js/cookie.js'
-import {AxiosInstance as axios} from "axios";
+import axios from "axios";
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.withCredentials = true
 	export default{
 		data(){
 			return{
@@ -55,9 +57,10 @@ import {AxiosInstance as axios} from "axios";
 				if(this.username == "" || this.password == ""){
 					alert("请输入用户名或密码")
 				}else{
-					let data = {'username':this.username,'password':this.password}
-
-					axios.post('http://localhost/vueapi/index.php/Home/user/login',data).then((res)=>{
+				  let data = new FormData()
+          data.append('username', this.username)
+          data.append('password', this.password)
+					axios.post('http://localhost:8876/login/buyer',data).then((res)=>{
 						console.log(res)
 						if(res.data == -1){
 							this.tishi = "该用户不存在"
@@ -91,7 +94,7 @@ import {AxiosInstance as axios} from "axios";
 					alert("请输入用户名或密码")
 				}else{
 					let data = {'username':this.newUsername,'password':this.newPassword}
-					axios.post('http://localhost/vueapi/index.php/Home/user/register',data).then((res)=>{
+					axios.post('http://localhost:8876/user/register',data).then((res)=>{
 						console.log(res)
 						if(res.data == "ok"){
 							this.tishi = "注册成功"

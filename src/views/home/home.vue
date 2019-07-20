@@ -28,3 +28,4 @@ import { setCookie,getCookie,delCookie } from '../../assets/js/cookie.js'
 		}
 	}
 </script>
+
